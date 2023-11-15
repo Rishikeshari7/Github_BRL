@@ -43,7 +43,7 @@ function App() {
     finally{
       setLoading(false);
     }
-  }
+  }<span></span>
 
   async function fetchFollowers(username){
     const followersDataURL = `https://api.github.com/users/${username}/followers`;
@@ -96,15 +96,15 @@ function App() {
           <h2>User Details</h2>
           <a href={userData.html_url} target="_blank"><img  src={userData.avatar_url} alt="img" /></a>
           <h3>{userData.name}</h3>
-          <p>Bio: {bio}</p>
-          <p>Location: {location}</p>
-          <p>Social: {social}</p>
-          <p>Joined GitHub on: {createdAt}</p>
-          <p>Public Repositories: {publicRepos}</p>
-          <p>Public Gists: {publicGists}</p>
-          <p>Following: {following}</p>
-          <p>Followers: {followers}</p>
-          <p><strong>Organisation:</strong> {organizations.length} </p>
+          <p><span className="userNameBio">Bio:</span> {bio}</p>
+          <p><span className="userNameBio">Location:</span> {location}</p>
+          <p><span className="userNameBio">Social:</span> {social}</p>
+          <p><span className="userNameBio">Joined GitHub on:</span> {createdAt}</p>
+          <p><span className="userNameBio">Public Repositories:</span> {publicRepos}</p>
+          <p><span className="userNameBio">Public Gists:</span> {publicGists}</p>
+          <p><span className="userNameBio">Following:</span> {following}</p>
+          <p><span className="userNameBio">Followers:</span> {followers}</p>
+          <p><span  className="userNameBio"><strong>Organisation:</strong></span> {organizations.length} </p>
           {/* <p>Starred Repositories: {starRepos.lenght}</p> */}
           
         </div>
