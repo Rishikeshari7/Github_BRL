@@ -108,6 +108,11 @@ body {
     -webkit-text-fill-color: transparent;
     font-family: 'Lobster Two', sans-serif;
     letter-spacing: 3px;
+    transition: all 0.5s ;
+  }
+  #user-details h3:hover{
+    transform: scale(1.05);
+    
   }
   .userNameBio{
     color: rgba(0, 234, 179, 0.703);
@@ -149,8 +154,12 @@ body {
     transform: scale(1.1);
   }
   .orgsContainer h2{
-    text-decoration: underline;
-    color: #1181cc;
+    font-size: 2em;
+    margin-bottom: 0px;
+    /* color: #1181cc; */
+    background: -webkit-linear-gradient( #2994db, rgb(62, 159, 224), #3e9fe0b5,rgba(188, 224, 89, 0.559), #3e9fe0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .orgsContainerinner {
     padding: 5px;
@@ -164,6 +173,7 @@ body {
   text-align: center;
   border-radius: 10px;
   margin-top: 30px;
+  margin-bottom: 50px;
   }
   .starRepoInner{
     display: grid;
@@ -196,12 +206,20 @@ body {
   }
   .starRepoContainer h2{
     font-size: 3em;
-    text-decoration: underline overline;
+    /* text-decoration: underline overline; */
     /* color: #1181cc; */
     background: -webkit-linear-gradient(#2980b9,rgba(29, 167, 188, 0.943), #46e03e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-right: 10px;
+  }
+  .starRepoContainer hr{
+    margin-top: -10px;
+    width: 90%;
+    margin-bottom: 20px;
+    border-top: 3px solid  #46e03ee8;
+    border-bottom: 3px solid  #46e03ea2;
+    
   }
   
   .floating-container {

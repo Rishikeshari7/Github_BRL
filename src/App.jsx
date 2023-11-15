@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Loader from './Loader';
 import './App.css';
+import Nav from "./nav"
 function App() {
   const [username,setUsername] =useState('');
   const [userData,setUserData] =useState(null);
@@ -86,7 +87,7 @@ function App() {
 
   return (
     <>
-    <label htmlFor="username">Enter GitHub Username:</label>
+    <label htmlFor="username">Fetch With Cathch GitHub </label>
     <div className="app">
       
       <input type="text" id="username" onChange={(e) => setUsername(e.target.value)}/>
@@ -124,8 +125,6 @@ function App() {
         )}
       
     </div>
-
-    
     { followersData.length>0 && (
     <div className='followerContainer'>
       <div id="followersList">
@@ -143,17 +142,18 @@ function App() {
             <span>Page {page} of {totalPage}</span>
             <button onClick={() => handlePageChange(page + 1)} >Next</button>
           </div>
+          
     </div>)}
-
-   
-           
-
-
+    
+ 
       <div >
+      
           {starRepos.length>0 && (
+            
             <div className='starRepoContainer'>
+            
               <h2>Starred Repositories </h2>
-              
+              <hr></hr>
               <div className='starRepoInner'>
               {starRepos.map((repo)=>(
                 <span key={repo.id}><a href={repo.html_url} target="_blank" > ~ {repo.name}</a> </span>
@@ -165,7 +165,7 @@ function App() {
       </div>
 
     
-    
+    {/* <Nav/> */}
     </>
   );
 }
