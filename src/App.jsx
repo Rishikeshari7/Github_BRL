@@ -15,7 +15,9 @@ function App() {
   const [followers,setFollowers] =useState(0);
   const [loading,setLoading]=useState(false);
   const [organizations,setOrganizations] =useState([]);
-  
+  const [starRepos,setStarredRepos]=useState([]);
+  const [page,setPage]=useState(1);
+  const perPage=5;
 
   async function fetchData(url){
     try{
@@ -34,6 +36,7 @@ function App() {
       showUserDetails(userData);
       await fetchFollowers(username);
       await fetchOrganisation(username);
+      await fetchStarRepo(username);
     } catch (error) {
       console.log("error");
     }
@@ -53,6 +56,11 @@ function App() {
     setOrganizations(orgData);
 
   }
+  async function fetchStarRepo(username){
+    const starRepoURL=`https://api.github.com/users/${username}/starred`
+    const starData= await fetchData(starRepoURL);
+    setStarredRepos(starData);
+  }
 
   function showUserDetails(userData){
     setUserData(userData);
@@ -65,19 +73,28 @@ function App() {
     setFollowing(userData.following);
     setFollowers(userData.followers);
   }
-
- 
+  const finalIndex= page*perPage;
+  const initialIndex=finalIndex-perPage;
+  const showFollower=followersData.slice(initialIndex,finalIndex);
+  const totalPage=Math.ceil( followersData.length/perPage);
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPage) {
+      setPage(newPage);
+    }
+  };
 
   return (
+    <>
+    <label htmlFor="username">Enter GitHub Username:</label>
     <div className="app">
-      <label htmlFor="username">Enter GitHub Username:</label>
+      
       <input type="text" id="username" onChange={(e) => setUsername(e.target.value)}/>
       <button onClick={fetchGitHubUserData}>Fetch Data</button>
       {loading ? <Loader/>:null}
       {userData && (
         <div id="user-details">
           <h2>User Details</h2>
-          <img src={userData.avatar_url} alt="img" />
+          <a href={userData.html_url} target="_blank"><img  src={userData.avatar_url} alt="img" /></a>
           <h3>{userData.name}</h3>
           <p>Bio: {bio}</p>
           <p>Location: {location}</p>
@@ -87,30 +104,67 @@ function App() {
           <p>Public Gists: {publicGists}</p>
           <p>Following: {following}</p>
           <p>Followers: {followers}</p>
+          <p><strong>Organisation:</strong> {organizations.length} </p>
+          {/* <p>Starred Repositories: {starRepos.lenght}</p> */}
+          
         </div>
       )}
-        
-          {organizations.length===0 ? (<h2>"Create Organisation first  😂"</h2>) : (
+      {/* {organizations.length===0 && <h3>Create Organisation first</h3>} */}
+      {organizations.length>0 && (
             <div className='orgsContainer'>
-              <h2>Organisation</h2>
-              <div> 
+            <hr/> 
+              <h2>Organisations Name</h2>
+              <ul className='orgsContainerinner'> 
               {organizations.map((orgs)=>(
-                <p key={orgs.id}>{orgs.login}</p>
+                <p key={orgs.id}>~ {orgs.login}</p>
+              ))}
+              </ul>
+            </div>
+        )}
+      
+    </div>
+
+    
+    { followersData.length>0 && (
+    <div className='followerContainer'>
+      <div id="followersList">
+        {showFollower.map(follower => (
+          <div key={follower.id} className="follower-item">
+            <a  href={follower.html_url}  target="_blank" ><img src={follower.avatar_url}/></a>
+            <p>{follower.login}</p>
+            
+          </div>
+        ))}
+        
+      </div>
+      <div className="pagination">
+            <button onClick={() => handlePageChange(page - 1)} >Previous</button>
+            <span>Page {page} of {totalPage}</span>
+            <button onClick={() => handlePageChange(page + 1)} >Next</button>
+          </div>
+    </div>)}
+
+   
+           
+
+
+      <div >
+          {starRepos.length>0 && (
+            <div className='starRepoContainer'>
+              <h2>Starred Repositories</h2>
+              <div className='starRepoInner'>
+              {starRepos.map((repo)=>(
+                <span key={repo.id}><a href={repo.html_url} target="_blank" > ~ {repo.name}</a> </span>
+              
               ))}
               </div>
             </div>
           )}
-        
-      <div id="followersList">
-        {followersData.map(follower => (
-          <div key={follower.id} className="follower-item">
-            <img src={follower.avatar_url}/>
-            <p><a href={follower.html_url}  target="_blank">{follower.login}</a></p>
-            
-          </div>
-        ))}
       </div>
-    </div>
+
+    
+    
+    </>
   );
 }
 
