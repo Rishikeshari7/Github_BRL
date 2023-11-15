@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import Loader from './Loader';
+import './App.css';
 function App() {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
@@ -12,6 +13,7 @@ function App() {
   const [publicGists, setPublicGists] = useState(0);
   const [following, setFollowing] = useState(0);
   const [followers, setFollowers] = useState(0);
+  const [loading , setLoading]=useState(false);
 
   async function fetchData(url) {
     try {
@@ -22,9 +24,9 @@ function App() {
     }
   }
 
-  async function fetchGitHubData() {
+  async function fetchGitHubUserData() {
     const apiURL = `https://api.github.com/users/${username}`;
-
+    setLoading(true);
     try {
       const userData = await fetchData(apiURL);
       showUserDetails(userData);
@@ -32,11 +34,14 @@ function App() {
     } catch (error) {
       console.log("error");
     }
+    finally{
+      setLoading(false);
+    }
   }
 
   async function fetchFollowers(username) {
-    const followersEndpoint = `https://api.github.com/users/${username}/followers`;
-    const data = await fetchData(followersEndpoint);
+    const followersDataURL = `https://api.github.com/users/${username}/followers`;
+    const data = await fetchData(followersDataURL);
     setFollowersData(data);
   }
 
@@ -55,11 +60,11 @@ function App() {
  
 
   return (
-    <div id="app">
+    <div className="app">
       <label htmlFor="username">Enter GitHub Username:</label>
       <input type="text" id="username" onChange={(e) => setUsername(e.target.value)}/>
-      <button onClick={fetchGitHubData}>Fetch Data</button>
-
+      <button onClick={fetchGitHubUserData}>Fetch Data</button>
+      {loading ? <Loader/>:null}
       {userData && (
         <div id="user-details">
           <h2>User Details</h2>

@@ -1,0 +1,88 @@
+
+/* styles.css */
+
+.app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #user-details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #user-details img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  #followersList {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .follower-item {
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .follower-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .follower-item p {
+    margin-top: 5px;
+  }
+  
+
+#followersList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.follower-item {
+  margin: 10px;
+  text-align: center;
+}
+
+.follower-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.follower-item p {
+  margin-top: 5px;
+}
