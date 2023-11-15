@@ -5,6 +5,7 @@ function App() {
   const [username,setUsername] =useState('');
   const [userData,setUserData] =useState(null);
   const [followersData,setFollowersData] =useState([]);
+  const [name , setName]=useState('');
   const [bio,setBio] =useState('');
   const [location,setLocation] =useState('');
   const [social,setSocial] =useState('');
@@ -93,9 +94,9 @@ function App() {
       {loading ? <Loader/>:null}
       {userData && (
         <div id="user-details">
-          <h2>User Details</h2>
+          <h2>• User Details </h2>
           <a href={userData.html_url} target="_blank"><img  src={userData.avatar_url} alt="img" /></a>
-          <h3>{userData.name}</h3>
+          <h3>⦾ {userData.name || userData.login}</h3>
           <p><span className="userNameBio">Bio:</span> {bio}</p>
           <p><span className="userNameBio">Location:</span> {location}</p>
           <p><span className="userNameBio">Social:</span> {social}</p>
@@ -151,7 +152,8 @@ function App() {
       <div >
           {starRepos.length>0 && (
             <div className='starRepoContainer'>
-              <h2>Starred Repositories</h2>
+              <h2>Starred Repositories </h2>
+              
               <div className='starRepoInner'>
               {starRepos.map((repo)=>(
                 <span key={repo.id}><a href={repo.html_url} target="_blank" > ~ {repo.name}</a> </span>
