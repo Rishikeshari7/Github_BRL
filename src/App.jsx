@@ -55,6 +55,9 @@ function App() {
   async function fetchOrganisation(username){
     const orgURL= `https://api.github.com/users/${username}/orgs`;
     const orgData= await fetchData(orgURL);
+    if(orgData.message==="Not Found"){
+      alert("Enetr a valid name !! Referesh the page to load up the content");
+    }
     setOrganizations(orgData);
 
   }
@@ -144,11 +147,11 @@ function App() {
           </div>
           
     </div>)}
-    
- 
+
+
       <div >
-      
-          {starRepos.length>0 && (
+
+          {starRepos.length>0 &&(
             
             <div className='starRepoContainer'>
             
@@ -157,7 +160,7 @@ function App() {
               <div className='starRepoInner'>
               {starRepos.map((repo)=>(
                 <span key={repo.id}><a href={repo.html_url} target="_blank" > ~ {repo.name}</a> </span>
-              
+
               ))}
               </div>
             </div>
